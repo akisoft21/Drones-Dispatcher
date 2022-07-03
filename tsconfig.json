@@ -1,0 +1,23 @@
+{
+  "compilerOptions": {
+      "target": "es2018",
+      "module": "commonjs",
+      "outDir": "dist",
+      "sourceMap": true,
+      "resolveJsonModule": true,
+      "esModuleInterop": true,
+      "allowSyntheticDefaultImports": true,
+      "moduleResolution": "node",
+      "pretty": true,
+      "strict": false,
+      "baseUrl": "./src",
+      "noUnusedLocals": true,
+      //"types": ["mocha", "node"]
+  },
+  "include": [
+      "src/**/*.ts",
+  ],
+  "exclude": [
+      "node_modules"
+  ]
+}
