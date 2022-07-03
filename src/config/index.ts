@@ -6,6 +6,7 @@ export const DB_NAME = process.env.PORT || "";
 export const DB_PASSWORD = process.env.PORT || "";
 export const DB_USER = process.env.PORT || "";
 export const BASE_PATH = process.env.BASE_PATH || "";
+export const ENVIRONMENT = process.env.NODE_ENV || "";
 
 
 

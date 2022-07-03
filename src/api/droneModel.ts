@@ -2,8 +2,6 @@ import Sequelize, { Model } from "sequelize";
 import { DB } from "../shared/database";
 
 export class DroneModel extends Model { }
-
-
 // - model (Lightweight, Middleweight, Cruiserweight, Heavyweight);
 // - weight limit (500gr max);
 // - battery capacity (percentage);

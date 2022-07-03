@@ -3,6 +3,7 @@ import { DB } from "./shared/database";
 import {global} from './middleware'
 import { BASE_PATH } from "./config";
 import { DispatchRouter } from "./api"
+import errorHandler from "./middleware/errorHandler";
 
 class App {
     public express  = express();
@@ -14,6 +15,7 @@ class App {
         this.initDB();
         this.registerMiddlewares();
         this.mountRoutes();
+        this.handleErrors()
     }
     private initDB(){
         DB.authenticate()
@@ -30,6 +32,20 @@ class App {
     }
     private registerMiddlewares() {
         global(this.express);
+    }
+    private handleErrors(){
+        process.on("unhandledRejection", (reason, promise) => {
+            throw reason;
+        });
+        process.on("uncaughtException", (error) => {
+            console.log(`Uncaught Exception: ${500} - ${error.message}, Stack: ${error.stack}`);
+            // process.exit(1);
+        });
+        process.on("SIGINT", () => {
+            console.log(" Alright! Bye bye!");
+            process.exit();
+        });
+        this.express.use(errorHandler);
     }
 }
 

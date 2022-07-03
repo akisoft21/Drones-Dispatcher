@@ -1,21 +1,21 @@
+import { IDrone } from "interfaces/IDrone";
 import { DroneModel } from "./"
 
 
 export class Service {
 
     public index = async () => {
-       
         return await DroneModel.findAll();
     }
 
-    public create = async () => {
-        let data = {
-            serial_number: 'sfjhdskf',
-            model:'Lightweight',
-            weight_limit: 499,
-            battery_capacity: 99,
-            state:'IDLE'
+    public create = async (drone: IDrone) => {
+        let _data = {
+            serial_number: drone.serial_number,
+            model: drone.model,
+            weight_limit: drone.weight_limit,
+            battery_capacity: drone.battery_capacity,
+            state: 'IDLE'
         };
-        return await DroneModel.create(data);
+        return await DroneModel.create(_data);
     }
 }

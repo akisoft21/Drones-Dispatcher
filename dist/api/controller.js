@@ -11,6 +11,9 @@ class Controller extends baseController_1.BaseController {
             this.dispatchService.index();
             return this.sendResponse(await this.dispatchService.index());
         };
+        this.createDrone = async (data) => {
+            return this.sendResponse(await this.dispatchService.create(data));
+        };
     }
 }
 exports.Controller = Controller;

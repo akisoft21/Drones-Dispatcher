@@ -7,15 +7,15 @@ class Service {
         this.index = async () => {
             return await _1.DroneModel.findAll();
         };
-        this.create = async () => {
-            let data = {
-                serial_number: 'sfjhdskf',
-                model: 'Lightweight',
-                weight_limit: 499,
-                battery_capacity: 99,
+        this.create = async (drone) => {
+            let _data = {
+                serial_number: drone.serial_number,
+                model: drone.model,
+                weight_limit: drone.weight_limit,
+                battery_capacity: drone.battery_capacity,
                 state: 'IDLE'
             };
-            return await _1.DroneModel.create(data);
+            return await _1.DroneModel.create(_data);
         };
     }
 }
