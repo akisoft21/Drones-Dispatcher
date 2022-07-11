@@ -13,7 +13,8 @@ export class Service {
     public createDrone = async (drone: IDrone) => {
 
         //check if drone exist
-        const isDrone = DroneModel.findOne({ where: { serial_number: drone.serial_number } })
+        const isDrone = await DroneModel.findOne({ where: { serial_number: drone.serial_number } })
+        console.log(isDrone);
         if (isDrone) {
             throw new AppError("Drone Already exist", 400);
         }

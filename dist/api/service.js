@@ -10,7 +10,8 @@ class Service {
         };
         this.createDrone = async (drone) => {
             //check if drone exist
-            const isDrone = _1.DroneModel.findOne({ where: { serial_number: drone.serial_number } });
+            const isDrone = await _1.DroneModel.findOne({ where: { serial_number: drone.serial_number } });
+            console.log(isDrone);
             if (isDrone) {
                 throw new app_error_1.AppError("Drone Already exist", 400);
             }
@@ -38,7 +39,11 @@ class Service {
             if (!drone) {
                 throw new app_error_1.AppError("Could not find drone", 400);
             }
+            if (drone.state !== 'IDLE') {
+                throw new app_error_1.AppError("Drone is not IDLE", 400);
+            }
             let medication = data.medications;
+            console.log(medication);
             for (let index = 0; index < medication.length; index++) {
                 const element = medication[index];
                 console.log("medication.........");
@@ -46,11 +51,6 @@ class Service {
                 console.log("medication..........");
             }
             //loop through objects of items. 
-            medication.forEach(element => {
-                console.log("medication......++++...");
-                console.log(element.name);
-                console.log("medication.......++++...");
-            });
         };
     }
 }
