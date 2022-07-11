@@ -31,7 +31,8 @@ class App {
         });
     }
     mountRoutes() {
-        this.express.use(`${this.basePath}/dispatch`, api_1.DispatchRouter);
+        this.express.use(`${this.basePath}/drone`, api_1.DispatchRouter.DroneRouter);
+        this.express.use(`${this.basePath}/dispatch`, api_1.DispatchRouter.DroneLoadRouter);
     }
     registerMiddlewares() {
         (0, middleware_1.global)(this.express);
@@ -42,7 +43,7 @@ class App {
         });
         process.on("uncaughtException", (error) => {
             console.log(`Uncaught Exception: ${500} - ${error.message}, Stack: ${error.stack}`);
-            // process.exit(1);
+            process.exit(1);
         });
         process.on("SIGINT", () => {
             console.log(" Alright! Bye bye!");

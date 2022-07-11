@@ -69,7 +69,7 @@ DroneModel.init({
     modelName: "drone_table",
 });
 const options = {
-    alter: false,
+    alter: true,
 };
 // force: true will drop the table if it already exists
 DroneModel.sync(options).then(() => {

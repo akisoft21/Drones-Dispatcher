@@ -48,7 +48,7 @@ DroneModel.init(
 
 
 const options: any = {
-    alter: false,
+    alter: true,
 };
 
 

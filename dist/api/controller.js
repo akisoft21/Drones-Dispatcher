@@ -12,7 +12,10 @@ class Controller extends baseController_1.BaseController {
             return this.sendResponse(await this.dispatchService.index());
         };
         this.createDrone = async (data) => {
-            return this.sendResponse(await this.dispatchService.create(data));
+            return this.sendResponse(await this.dispatchService.createDrone(data));
+        };
+        this.loadDrone = async (medications, droneSerial) => {
+            return this.sendResponse(await this.dispatchService.loadDrone(droneSerial, medications));
         };
     }
 }

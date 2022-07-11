@@ -9,3 +9,14 @@ export const DroneValidationSchema = Joi.object().keys(<IDrone>{
     battery_capacity: Joi.number().max(100).required(),
     state: Joi.string()
 });
+
+let medication = Joi.object().keys({
+    name: Joi.string().required(),
+    weight: Joi.number().required(),
+    code: Joi.string().required(),
+    image: Joi.string().required(),
+})
+
+export const MedicationValidationSchema = Joi.object().keys({
+    medications: Joi.array().items(medication)
+})
