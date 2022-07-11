@@ -100,7 +100,7 @@ npm install
 
 ## Run It
 #### Run in *development* mode:
-Runs the application is development mode. Should not be used in production
+Runs the application is development mode
 
 ```shell
 npm run watch
