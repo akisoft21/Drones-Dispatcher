@@ -42,7 +42,7 @@ DroneModel.init(
     },
     {
         sequelize: DB,
-        modelName: "drone_table",
+        modelName: "drone",
     },
 )
 

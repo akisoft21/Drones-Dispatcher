@@ -4,7 +4,6 @@ import { Service } from "./service";
 
 
 export class Controller extends BaseController {
-
     private dispatchService = new Service();
     public index = async () => {
         this.dispatchService.index()
@@ -16,8 +15,17 @@ export class Controller extends BaseController {
     public loadDrone = async ( medications: any, droneSerial: string) => {
         return this.sendResponse(await this.dispatchService.loadDrone(droneSerial, medications));
     }
+    public droneMedications = async (droneSerial: string) => {
+        
+        return this.sendResponse(await this.dispatchService.droneMedications(droneSerial));
+    }
+    public getIdleDrone = async () => {
+        return this.sendResponse(await this.dispatchService.getIdleDrone());
+    }
+    public droneBattery = async (droneSerial) => {
+        return this.sendResponse(await this.dispatchService.droneBattery(droneSerial));
+    }
+    
 
-
-
-
+    
 }

@@ -10,7 +10,7 @@ const sqlite3_1 = __importDefault(require("sqlite3"));
 exports.DB = new sequelize_1.Sequelize(config_1.DB_NAME, config_1.DB_USER, config_1.DB_PASSWORD, {
     host: config_1.DB_HOST,
     dialect: "sqlite",
-    storage: 'database.sqlite',
+    storage: 'drones.sqlite',
     logging: false,
     typeValidation: true,
     dialectOptions: {

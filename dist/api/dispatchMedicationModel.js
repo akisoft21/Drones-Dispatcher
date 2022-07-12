@@ -23,57 +23,39 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.DroneModel = void 0;
+exports.DispatchMedicationModel = void 0;
 const sequelize_1 = __importStar(require("sequelize"));
 const database_1 = require("../shared/database");
-class DroneModel extends sequelize_1.Model {
+// import { DispatchModel } from "./dispatchModel";
+// import { MedicationModel } from "./medicationModel";
+class DispatchMedicationModel extends sequelize_1.Model {
 }
-exports.DroneModel = DroneModel;
-// - model (Lightweight, Middleweight, Cruiserweight, Heavyweight);
-// - weight limit (500gr max);
-// - battery capacity (percentage);
-// - state (IDLE, LOADING, LOADED, DELIVERING, DELIVERED, RETURNING).
-DroneModel.init({
-    serial_number: {
-        type: sequelize_1.default.STRING(100),
-        unique: {
-            name: "serial_number",
-            msg: "Drone with serial number already exist",
-        },
-        validate: {
-            max: 100,
-        },
+exports.DispatchMedicationModel = DispatchMedicationModel;
+DispatchMedicationModel.init({
+    MedicationId: {
+        type: sequelize_1.default.INTEGER,
+        references: {
+            model: 'medications',
+            key: 'id'
+        }
     },
-    model: {
-        type: sequelize_1.default.ENUM({ values: ["Lightweight", "Middleweight", "Cruiserweight", "Heavyweight"] }),
-        defaultValue: "Lightweight",
-    },
-    weight_limit: {
-        type: sequelize_1.default.FLOAT,
-        validate: {
-            max: 500,
-        },
-    },
-    battery_capacity: {
-        type: sequelize_1.default.FLOAT,
-        validate: {
-            max: 100,
-        },
-    },
-    state: {
-        type: sequelize_1.default.ENUM({ values: ["IDLE", "LOADING", "LOADED", "DELIVERING", "RETURNING"] }),
-        defaultValue: "IDLE",
-    },
+    DispatchId: {
+        type: sequelize_1.default.INTEGER,
+        references: {
+            model: 'dispatches',
+            key: 'id'
+        }
+    }
 }, {
     sequelize: database_1.DB,
-    modelName: "drone",
+    modelName: "dispatchMedication",
 });
 const options = {
     alter: true,
 };
 // force: true will drop the table if it already exists
-DroneModel.sync(options).then(() => {
-    console.log("drone_table migrated");
+DispatchMedicationModel.sync(options).then(() => {
+    console.log("dispatch medication table migrated");
     // Table created
 });
-//# sourceMappingURL=droneModel.js.map
+//# sourceMappingURL=dispatchMedicationModel.js.map

@@ -4,7 +4,7 @@ import SQLite from 'sqlite3';
 export const DB = new Sequelize(DB_NAME, DB_USER, DB_PASSWORD, {
     host: DB_HOST,
     dialect: "sqlite",
-    storage: 'database.sqlite',
+    storage: 'drones.sqlite',
     logging: false,
     typeValidation: true,
     dialectOptions: {

@@ -18,5 +18,8 @@ DroneRouter.use((0, validation_1.validation)(validationSchemas_1.DroneValidation
     DroneRouter.post("/create-drone", call(dispatchController.createDrone, (req, res, next) => [req.body]));
 DroneLoadRouter.use((0, validation_1.validation)(validationSchemas_1.MedicationValidationSchema));
 DroneLoadRouter.post("/load-drone/:serial_number", call(dispatchController.loadDrone, (req, res, next) => [req.body, req.params.serial_number]));
+DroneLoadRouter.get("/drone/:serial_number", call(dispatchController.droneMedications, (req, res, next) => [req.params.serial_number]));
+DroneLoadRouter.get("/idle-drone", call(dispatchController.getIdleDrone, (req, res, next) => []));
+DroneLoadRouter.get("/drone-battery/:serial_number", call(dispatchController.droneBattery, (req, res, next) => [req.params.serial_number]));
 exports.DispatchRouter = { DroneRouter, DroneLoadRouter };
 //# sourceMappingURL=router.js.map
