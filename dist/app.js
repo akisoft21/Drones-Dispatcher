@@ -7,8 +7,9 @@ const express_1 = __importDefault(require("express"));
 const database_1 = require("./shared/database");
 const middleware_1 = require("./middleware");
 const config_1 = require("./config");
-const api_1 = require("./api");
 const errorHandler_1 = __importDefault(require("./middleware/errorHandler"));
+const drones_1 = require("./api/drones");
+const dispatches_1 = require("./api/dispatches");
 class App {
     constructor() {
         this.express = (0, express_1.default)();
@@ -31,8 +32,8 @@ class App {
         });
     }
     mountRoutes() {
-        this.express.use(`${this.basePath}/drone`, api_1.DispatchRouter.DroneRouter);
-        this.express.use(`${this.basePath}/dispatch`, api_1.DispatchRouter.DroneLoadRouter);
+        this.express.use(`${this.basePath}/drone`, drones_1.DroneRouter);
+        this.express.use(`${this.basePath}/dispatch`, dispatches_1.DispatchRouter);
     }
     registerMiddlewares() {
         (0, middleware_1.global)(this.express);

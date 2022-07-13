@@ -2,8 +2,9 @@ import express from "express";
 import { DB } from "./shared/database";
 import { global } from './middleware'
 import { BASE_PATH } from "./config";
-import { DispatchRouter } from "./api"
 import errorHandler from "./middleware/errorHandler";
+import { DroneRouter } from "./api/drones";
+import { DispatchRouter } from "./api/dispatches";
 
 class App {
     public express = express();
@@ -25,11 +26,10 @@ class App {
             .catch((err) => {
                 console.log(err);
             });
-
     }
     private mountRoutes() {
-        this.express.use(`${this.basePath}/drone`, DispatchRouter.DroneRouter);
-        this.express.use(`${this.basePath}/dispatch`, DispatchRouter.DroneLoadRouter);
+        this.express.use(`${this.basePath}/drone`, DroneRouter);
+        this.express.use(`${this.basePath}/dispatch`, DispatchRouter);
     }
     private registerMiddlewares() {
         global(this.express);
