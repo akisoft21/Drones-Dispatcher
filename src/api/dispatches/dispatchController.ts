@@ -14,4 +14,10 @@ export class DispatchController extends BaseController {
     public droneMedications = async (droneSerial: string) => {
         return this.sendResponse(await this.dispatchService.droneMedications(droneSerial));
     }
+
+    public medicationImage = async (res: any) => {
+        const profile = await this.dispatchService.processImage(res);
+        return this.sendResponse(profile);
+    }
+
 }

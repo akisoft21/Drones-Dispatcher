@@ -8,7 +8,9 @@ const app_error_1 = require("../../util/app-error");
 const crypto_1 = __importDefault(require("crypto"));
 const drones_1 = require("../drones");
 const _1 = require(".");
-// import { IDrone } from "../../interfaces/IDrone";
+const uploads_1 = require("../../middleware/uploads");
+const storage_blob_1 = require("@azure/storage-blob");
+const config_1 = require("../../config");
 class DispatchService {
     constructor() {
         this.index = async () => {
@@ -39,9 +41,11 @@ class DispatchService {
                 if (total_weight > drone.weight_limit) {
                     throw new app_error_1.AppError("Item weight is more than drone capacity", 400);
                 }
+                //create a drop dispatch
                 let dispatch = await _1.DispatchModel.create({ dispatch_id: this.generateCashRefCode() }, { transaction: this.transaction });
                 drone.addDispatch(dispatch);
                 let all_medication = [];
+                //find or create each medication 
                 for (let index = 0; index < medication.length; index++) {
                     const element = medication[index];
                     let single_medication = await this.findCreateMedication(element);
@@ -84,6 +88,29 @@ class DispatchService {
                 weight: medication.weight,
                 image: medication.image
             });
+        };
+        this.getBlobName = async (originalName) => {
+            const identifier = Math.random().toString().replace(/0\./, ''); // remove "0." from start of string
+            return `${identifier}-${originalName}`;
+        };
+        this.getBlobStream = async (req) => {
+            return await (0, uploads_1._getBlobStream)(req);
+        };
+        this.processImage = async (req) => {
+            try {
+                console.log("-----------File-----");
+                console.log(req.file.originalname, config_1.AZURE_CONNECTION_STRING);
+                console.log("-----------File-----");
+                let containerName = "selfie";
+                const blobName = await this.getBlobName(req.file.originalname), blobService = new storage_blob_1.BlockBlobClient(config_1.AZURE_CONNECTION_STRING, containerName, blobName), streamLength = req.file.buffer.length;
+                let stream = await this.getBlobStream(req);
+                await blobService.uploadStream(stream, streamLength);
+                return await blobName;
+            }
+            catch (error) {
+                console.log(error);
+                throw new app_error_1.AppError(`could not update image`);
+            }
         };
         this.generateCashRefCode = () => {
             return crypto_1.default.randomBytes(3).toString("hex");

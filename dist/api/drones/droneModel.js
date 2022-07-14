@@ -29,10 +29,6 @@ const database_1 = require("../../shared/database");
 class DroneModel extends sequelize_1.Model {
 }
 exports.DroneModel = DroneModel;
-// - model (Lightweight, Middleweight, Cruiserweight, Heavyweight);
-// - weight limit (500gr max);
-// - battery capacity (percentage);
-// - state (IDLE, LOADING, LOADED, DELIVERING, DELIVERED, RETURNING).
 DroneModel.init({
     serial_number: {
         type: sequelize_1.default.STRING(100),

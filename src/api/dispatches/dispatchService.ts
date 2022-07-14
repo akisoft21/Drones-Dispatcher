@@ -4,7 +4,9 @@ import crypto from "crypto";
 import { Transaction } from "sequelize";
 import { DroneModel } from "../drones";
 import { DispatchModel, MedicationModel } from ".";
-// import { IDrone } from "../../interfaces/IDrone";
+import { _getBlobStream } from "../../middleware/uploads";
+import { BlockBlobClient } from '@azure/storage-blob';
+import { AZURE_CONNECTION_STRING, AZURE_CONTAINER_NAME } from "../../config";
 
 export class DispatchService {
     transaction: Transaction;
@@ -85,6 +87,29 @@ export class DispatchService {
             weight: medication.weight,
             image: medication.image
         })
+    }
+
+    public getBlobName = async (originalName) => {
+        const identifier = Math.random().toString().replace(/0\./, ''); // remove "0." from start of string
+        return `${identifier}-${originalName}`;
+    };
+    public getBlobStream = async (req: any,) => {
+        return await _getBlobStream(req);
+    };
+    public processImage = async (req: any) => {
+        try {
+            const
+                blobName = await this.getBlobName(req.file.originalname)
+                , blobService = new BlockBlobClient(AZURE_CONNECTION_STRING, AZURE_CONTAINER_NAME, blobName)
+                , streamLength = req.file.buffer.length
+            let stream = await this.getBlobStream(req);
+            await blobService.uploadStream(stream, streamLength)
+            return await blobName;
+
+        } catch (error) {
+            console.log(error);
+            throw new AppError(`could not update image`);
+        }
     }
 
     private generateCashRefCode = () => {

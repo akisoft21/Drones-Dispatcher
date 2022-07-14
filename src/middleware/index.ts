@@ -1,5 +1,9 @@
 
 import global from "./global";
+import { uploadStrategy } from "./uploads";
+import { validation } from "./validation";
 export {
-    global
+    global,
+    uploadStrategy,
+    validation
 }
